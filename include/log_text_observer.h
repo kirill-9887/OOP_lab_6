@@ -10,6 +10,11 @@ private:
     const std::string filename = "log.txt";
 
 public:
+    LogTextObserver(const LogTextObserver&) = delete;
+    LogTextObserver(LogTextObserver&&) noexcept = delete;
+    LogTextObserver& operator=(const LogTextObserver&) = delete;
+    LogTextObserver& operator=(LogTextObserver&&) noexcept = delete;
+    
     static std::shared_ptr<IFightObserver> get();
 
     void on_fight(
