@@ -70,7 +70,7 @@ TEST(FightLogicTest, BearVsWerewolf) {
     EXPECT_FALSE(bear->is_lose());
 }
 
-TEST(FightLogicTest, SameTypeNoKill) {
+TEST(FightLogicTest, SameTypeNoDefeat) {
     auto outlow1 = std::make_shared<Outlow>("NPCOutlow1", 0, 0);
     auto outlow2 = std::make_shared<Outlow>("NPCOutlow2", 0, 0);
     
