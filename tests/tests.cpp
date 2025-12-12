@@ -12,28 +12,28 @@
 
 TEST(NPCFactoryTest, CreateOutlow) {
     NPC_Factory factory;
-    auto npc = factory.createNPC(OutlowType, "Outlow1", 100, 200);
+    auto npc = factory.createNPC(OutlowType, "NPCOutlow1", 100, 200);
     EXPECT_NE(npc, nullptr);
     EXPECT_EQ(npc->get_type(), OutlowType);
-    EXPECT_EQ(npc->get_name(), "Outlow1");
+    EXPECT_EQ(npc->get_name(), "NPCOutlow1");
     EXPECT_EQ(npc->get_x(), 100);
     EXPECT_EQ(npc->get_y(), 200);
 }
 
 TEST(NPCFactoryTest, CreateBear) {
     NPC_Factory factory;
-    auto npc = factory.createNPC(BearType, "Bear1", 150, 250);
+    auto npc = factory.createNPC(BearType, "NPCBear1", 150, 250);
     EXPECT_NE(npc, nullptr);
     EXPECT_EQ(npc->get_type(), BearType);
-    EXPECT_EQ(npc->get_name(), "Bear1");
+    EXPECT_EQ(npc->get_name(), "NPCBear1");
 }
 
 TEST(NPCFactoryTest, CreateWerewolf) {
     NPC_Factory factory;
-    auto npc = factory.createNPC(WerewolfType, "Werewolf1", 300, 400);
+    auto npc = factory.createNPC(WerewolfType, "NPCWerewolf1", 300, 400);
     EXPECT_NE(npc, nullptr);
     EXPECT_EQ(npc->get_type(), WerewolfType);
-    EXPECT_EQ(npc->get_name(), "Werewolf1");
+    EXPECT_EQ(npc->get_name(), "NPCWerewolf1");
 }
 
 TEST(NPCFactoryTest, InvalidType) {
@@ -44,8 +44,8 @@ TEST(NPCFactoryTest, InvalidType) {
 
 
 TEST(FightLogicTest, WerewolfVsOutlow) {
-    auto werewolf = std::make_shared<Werewolf>("Werewolf1", 0, 0);
-    auto outlow = std::make_shared<Outlow>("Outlow1", 0, 0);
+    auto werewolf = std::make_shared<Werewolf>("NPCWerewolf1", 0, 0);
+    auto outlow = std::make_shared<Outlow>("NPCOutlow1", 0, 0);
     
     EXPECT_TRUE(outlow->accept(werewolf));
     EXPECT_TRUE(outlow->is_lose());
@@ -53,8 +53,8 @@ TEST(FightLogicTest, WerewolfVsOutlow) {
 }
 
 TEST(FightLogicTest, OutlowVsBear) {
-    auto outlow = std::make_shared<Outlow>("Outlow1", 0, 0);
-    auto bear = std::make_shared<Bear>("Bear1", 0, 0);
+    auto outlow = std::make_shared<Outlow>("NPCOutlow1", 0, 0);
+    auto bear = std::make_shared<Bear>("NPCBear1", 0, 0);
     
     EXPECT_TRUE(bear->accept(outlow));
     EXPECT_TRUE(bear->is_lose());
@@ -62,8 +62,8 @@ TEST(FightLogicTest, OutlowVsBear) {
 }
 
 TEST(FightLogicTest, BearVsWerewolf) {
-    auto bear = std::make_shared<Bear>("Bear1", 0, 0);
-    auto werewolf = std::make_shared<Werewolf>("Werewolf1", 0, 0);
+    auto bear = std::make_shared<Bear>("NPCBear1", 0, 0);
+    auto werewolf = std::make_shared<Werewolf>("NPCWerewolf1", 0, 0);
     
     EXPECT_TRUE(werewolf->accept(bear));
     EXPECT_TRUE(werewolf->is_lose());
@@ -71,8 +71,8 @@ TEST(FightLogicTest, BearVsWerewolf) {
 }
 
 TEST(FightLogicTest, SameTypeNoKill) {
-    auto outlow1 = std::make_shared<Outlow>("Outlow1", 0, 0);
-    auto outlow2 = std::make_shared<Outlow>("Outlow2", 0, 0);
+    auto outlow1 = std::make_shared<Outlow>("NPCOutlow1", 0, 0);
+    auto outlow2 = std::make_shared<Outlow>("NPCOutlow2", 0, 0);
     
     EXPECT_FALSE(outlow2->accept(outlow1));
     EXPECT_FALSE(outlow2->is_lose());
@@ -81,20 +81,20 @@ TEST(FightLogicTest, SameTypeNoKill) {
 
 
 TEST(DistanceTest, NPCsAreClose) {
-    auto npc1 = std::make_shared<Outlow>("Outlow1", 0, 0);
-    auto npc2 = std::make_shared<Bear>("Bear1", 5, 5);
+    auto npc1 = std::make_shared<Outlow>("NPCOutlow1", 0, 0);
+    auto npc2 = std::make_shared<Bear>("NPCBear1", 5, 5);
     EXPECT_TRUE(npc1->is_close(npc2, 10));
 }
 
 TEST(DistanceTest, NPCsAreFar) {
-    auto npc1 = std::make_shared<Outlow>("Outlow1", 0, 0);
-    auto npc2 = std::make_shared<Bear>("Bear1", 100, 100);
+    auto npc1 = std::make_shared<Outlow>("NPCOutlow1", 0, 0);
+    auto npc2 = std::make_shared<Bear>("NPCBear1", 100, 100);
     EXPECT_FALSE(npc1->is_close(npc2, 10));
 }
 
 TEST(DistanceTest, SamePosition) {
-    auto npc1 = std::make_shared<Outlow>("Outlow1", 50, 50);
-    auto npc2 = std::make_shared<Bear>("Bear1", 50, 50);
+    auto npc1 = std::make_shared<Outlow>("NPCOutlow1", 50, 50);
+    auto npc2 = std::make_shared<Bear>("NPCBear1", 50, 50);
     EXPECT_TRUE(npc1->is_close(npc2, 1));
 }
 
@@ -103,9 +103,9 @@ TEST(SerializationTest, SaveAndLoad) {
     set_t original_set;
     NPC_Factory factory;
     
-    original_set.insert(factory.createNPC(OutlowType, "Outlow1", 100, 200));
-    original_set.insert(factory.createNPC(BearType, "Bear1", 150, 250));
-    original_set.insert(factory.createNPC(WerewolfType, "Werewolf1", 300, 400));
+    original_set.insert(factory.createNPC(OutlowType, "NPCOutlow1", 100, 200));
+    original_set.insert(factory.createNPC(BearType, "NPCBear1", 150, 250));
+    original_set.insert(factory.createNPC(WerewolfType, "NPCWerewolf1", 300, 400));
 
     save(original_set, "test_save.txt");
 
@@ -141,9 +141,9 @@ TEST(IntegrationTest, FullFightCycle) {
     NPC_Factory factory;
     set_t npc_set;
     
-    npc_set.insert(factory.createNPC(WerewolfType, "Werewolf1", 0, 0));
-    npc_set.insert(factory.createNPC(OutlowType, "Outlow1", 1, 1));
-    npc_set.insert(factory.createNPC(BearType, "Bear1", 100, 100));
+    npc_set.insert(factory.createNPC(WerewolfType, "NPCWerewolf1", 0, 0));
+    npc_set.insert(factory.createNPC(OutlowType, "NPCOutlow1", 1, 1));
+    npc_set.insert(factory.createNPC(BearType, "NPCBear1", 100, 100));
     
     size_t initial_size = npc_set.size();
     
@@ -163,44 +163,44 @@ TEST(IntegrationTest, PrintNPCSet) {
     NPC_Factory factory;
     set_t npc_set;
     
-    npc_set.insert(factory.createNPC(OutlowType, "Outlow1", 100, 200));
-    npc_set.insert(factory.createNPC(BearType, "Bear1", 150, 250));
+    npc_set.insert(factory.createNPC(OutlowType, "NPCOutlow1", 100, 200));
+    npc_set.insert(factory.createNPC(BearType, "NPCBear1", 150, 250));
     
     std::stringstream ss;
     ss << npc_set;
     
     EXPECT_FALSE(ss.str().empty());
-    EXPECT_NE(ss.str().find("Outlow1"), std::string::npos);
-    EXPECT_NE(ss.str().find("Bear1"), std::string::npos);
+    EXPECT_NE(ss.str().find("NPCOutlow1"), std::string::npos);
+    EXPECT_NE(ss.str().find("NPCBear1"), std::string::npos);
 }
 
 
 TEST(BoundaryTest, NPCAtFieldBoundaries) {
-    auto npc = std::make_shared<Outlow>("Outlow1", 500, 500);
+    auto npc = std::make_shared<Outlow>("NPCOutlow1", 500, 500);
     EXPECT_EQ(npc->get_x(), 500);
     EXPECT_EQ(npc->get_y(), 500);
     
-    auto npc2 = std::make_shared<Bear>("Bear1", 0, 0);
+    auto npc2 = std::make_shared<Bear>("NPCBear1", 0, 0);
     EXPECT_EQ(npc2->get_x(), 0);
     EXPECT_EQ(npc2->get_y(), 0);
 }
 
 TEST(BoundaryTest, ZeroDistanceFight) {
-    auto npc1 = std::make_shared<Werewolf>("Werewolf1", 0, 0);
-    auto npc2 = std::make_shared<Outlow>("Outlow1", 0, 0);
+    auto npc1 = std::make_shared<Werewolf>("NPCWerewolf1", 0, 0);
+    auto npc2 = std::make_shared<Outlow>("NPCOutlow1", 0, 0);
     
     EXPECT_TRUE(npc1->is_close(npc2, 0));
 }
 
 
 TEST(NPCStateTest, InitialState) {
-    auto npc = std::make_shared<Bear>("Bear1", 100, 200);
+    auto npc = std::make_shared<Bear>("NPCBear1", 100, 200);
     EXPECT_FALSE(npc->is_lose());
     EXPECT_TRUE(npc->is_in_game());
 }
 
 TEST(NPCStateTest, SetLose) {
-    auto npc = std::make_shared<Bear>("Bear1", 100, 200);
+    auto npc = std::make_shared<Bear>("NPCBear1", 100, 200);
     npc->set_lose();
     
     EXPECT_TRUE(npc->is_lose());
