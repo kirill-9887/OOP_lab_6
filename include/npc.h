@@ -55,6 +55,7 @@ public:
     void set_lose();
 
     void subscribe(const std::shared_ptr<IFightObserver> &observer);
+    void detach(const std::shared_ptr<IFightObserver> &observer);
     void fight_notify(const std::shared_ptr<NPC> &defender);
     
     virtual bool is_close(const std::shared_ptr<NPC> &defender, size_t distance) const;

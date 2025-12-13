@@ -39,6 +39,15 @@ void NPC::subscribe(const std::shared_ptr<IFightObserver> &observer) {
     observers.push_back(observer);
 }
 
+void NPC::detach(const std::shared_ptr<IFightObserver> &observer) {
+    for (int i{0}; i < observers.size(); ++i) {
+        if (observers[i].get() == observer.get()) {
+            observers.erase(observers.begin() + i);
+            return;
+        }
+    }
+}
+
 void NPC::fight_notify(const std::shared_ptr<NPC> &defender) {
     for (auto &o : observers) {
         o->on_fight(shared_from_this(), defender);

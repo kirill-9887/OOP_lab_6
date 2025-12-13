@@ -206,3 +206,9 @@ TEST(NPCStateTest, SetLose) {
     EXPECT_TRUE(npc->is_lose());
     EXPECT_FALSE(npc->is_in_game());
 }
+
+TEST(NPCStateTest, Observer) {
+    auto npc = std::make_shared<Bear>("NPCBear1", 100, 200);
+    EXPECT_NO_THROW(npc->subscribe(TextObserver::get()));
+    EXPECT_NO_THROW(npc->detach(TextObserver::get()));
+}
